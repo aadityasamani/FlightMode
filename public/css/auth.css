@@ -1,0 +1,155 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            transition: background-color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body.fade-out {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* --- Theme Classes --- */
+        .theme-light { background-color: #f3f4f6; }
+
+        .theme-lavender { background-color: #e9d5ff; }
+        .theme-mint { background-color: #d1fae5; }
+        .theme-sky { background-color: #bfdbfe; }
+
+        /* --- Primary Action Button --- */
+.primary-btn {
+  background-color: #3b82f6; /* blue-500 (default / light) */
+}
+
+.primary-btn:hover {
+  filter: brightness(0.95);
+}
+
+
+
+/* Lavender */
+.theme-lavender .primary-btn {
+  background-color: #a855f7; /* violet-500 */
+}
+
+/* Mint */
+.theme-mint .primary-btn {
+  background-color: #10b981; /* emerald-500 */
+}
+
+/* Sky */
+.theme-sky .primary-btn {
+  background-color: #3b82f6; /* sky-friendly blue */
+}
+
+        /* --- Auth Input Base --- */
+.auth-input {
+  border-color: #e5e7eb; /* gray-200 */
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+}
+
+        .card { transition: background-color 0.3s ease, color 0.3s ease; }
+        .theme-light .card { background-color: white; color: #1f2937; }
+
+        .theme-lavender .card { background-color: #faf5ff; color: #4c1d95; }
+        .theme-mint .card { background-color: #f0fdf4; color: #064e3b; }
+        .theme-sky .card { background-color: #eff6ff; color: #1e3a8a; }
+
+
+
+        /* --- Theme Switcher --- */
+        .theme-switcher { position: fixed; top: 20px; right: 20px; display: flex; gap: 8px; z-index: 1000; }
+        .theme-btn { width: 40px; height: 40px; border-radius: 50%; border: 3px solid white; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .theme-btn:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .theme-btn.active { box-shadow: 0 0 0 3px #3b82f6; }
+
+        /* --- Social Buttons --- */
+        .social-btn { transition: background-color 0.2s ease; }
+        .social-btn:hover { background-color: #f9fafb; }
+
+
+        /* --- Tab Buttons --- */
+        .tab-button { color: #6b7280; background: transparent; cursor: pointer; border: none; }
+        .theme-light .tab-button.active { background: white; color: #1f2937; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+
+        .theme-lavender .tab-button { color: #7c3aed; }
+        .theme-lavender .tab-button.active { background: #faf5ff; color: #4c1d95; box-shadow: 0 1px 3px rgba(124, 58, 237, 0.2); }
+        .theme-lavender .tab-container { background-color: #ddd6fe; }
+        .theme-mint .tab-button { color: #059669; }
+        .theme-mint .tab-button.active { background: #f0fdf4; color: #064e3b; box-shadow: 0 1px 3px rgba(5, 150, 105, 0.2); }
+        .theme-mint .tab-container { background-color: #a7f3d0; }
+        .theme-sky .tab-button { color: #2563eb; }
+        .theme-sky .tab-button.active { background: #eff6ff; color: #1e3a8a; box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2); }
+        .theme-sky .tab-container { background-color: #93c5fd; }
+
+
+
+/* Lavender */
+.theme-lavender .auth-input:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.35);
+}
+
+/* Mint */
+.theme-mint .auth-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
+}
+
+/* Sky */
+.theme-sky .auth-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+}
+
+        
+        /* --- NEW SMOOTH TRANSITION STYLES --- */
+        /* This class manages the transition properties (fade and slide) */
+        .form-transition {
+            /* Initial state for forms that are not visible (out state) */
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease-in-out, max-height 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+
+        /* This class is added to the currently visible form (in state) */
+        .form-transition.active-form {
+            opacity: 1;
+            max-height: 1000px; /* Large value to accommodate content and enable height transition */
+            transform: translateY(0);
+        }

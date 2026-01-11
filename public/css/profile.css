@@ -1,0 +1,284 @@
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    /* FIX: Prevent background jumping when modal opens */
+    body.modal-open {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.3s ease-in forwards;
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Themes */
+    .theme-light {
+      background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 50%);
+      color: #1f2937;
+    }
+
+    .theme-lavender {
+      background: linear-gradient(to bottom, #faf5ff 0%, #f5f3ff 50%);
+      color: #4c1d95;
+    }
+
+    .theme-mint {
+      background: linear-gradient(to bottom, #f0fdf4 0%, #ecfdf5 50%);
+      color: #064e3b;
+    }
+
+    .theme-sky {
+      background: linear-gradient(to bottom, #eff6ff 0%, #dbeafe 50%);
+      color: #1e3a8a;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+
+    .theme-lavender .card {
+      background: rgba(250, 245, 255, 0.8);
+      border: 1px solid rgba(124, 58, 237, 0.1);
+    }
+
+    .theme-mint .card {
+      background: rgba(240, 253, 244, 0.8);
+      border: 1px solid rgba(4, 120, 87, 0.1);
+    }
+
+    .theme-sky .card {
+      background: rgba(239, 246, 255, 0.8);
+      border: 1px solid rgba(37, 99, 235, 0.1);
+    }
+
+    /* Avatar Glow Effect */
+    .avatar-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .avatar-container::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      filter: blur(12px);
+      opacity: 0.4;
+      z-index: -1;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Input Styles */
+    .premium-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 2px solid rgba(0, 0, 0, 0.06);
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 15px;
+      transition: all 0.2s ease;
+    }
+
+    .premium-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+
+
+
+    /* Theme Dropdown Styles */
+    .switch-button {
+      min-width: 120px;
+      height: 48px;
+      border-radius: 14px;
+      padding: 0 16px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #3b82f6;
+    }
+
+    .switch-button:hover {
+      background: rgba(59, 130, 246, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .chevron-switch {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .switch-button.open .chevron-switch {
+      transform: rotate(180deg);
+    }
+
+    .select-menu {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      min-width: 200px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      padding: 6px;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: all 0.18s ease;
+      z-index: 50;
+    }
+
+    .select-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .select-item {
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .select-item:hover {
+      background: rgba(0, 0, 0, 0.06);
+      transform: translateX(4px);
+    }
+
+    .theme-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      flex-shrink: 0;
+    }
+
+
+    .theme-lavender .select-menu {
+      background-color: #faf5ff;
+    }
+
+    .theme-mint .select-menu {
+      background-color: #f0fdf4;
+    }
+
+    .theme-sky .select-menu {
+      background-color: #eff6ff;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop:not(.hidden) {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 400px;
+      animation: modalSlideUp 0.3s ease;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      background: rgb(188 175 175 / 12%);
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-weight: 600;
+    }

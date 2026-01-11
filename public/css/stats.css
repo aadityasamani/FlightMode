@@ -1,0 +1,157 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.fade-out {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Themes */
+.theme-light {
+    background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 50%);
+    color: #1f2937;
+}
+
+.theme-dark {
+    background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 50%);
+    color: #f3f4f6;
+}
+
+.theme-lavender {
+    background: linear-gradient(to bottom, #faf5ff 0%, #f5f3ff 50%);
+    color: #4c1d95;
+}
+
+.theme-mint {
+    background: linear-gradient(to bottom, #f0fdf4 0%, #ecfdf5 50%);
+    color: #064e3b;
+}
+
+.theme-sky {
+    background: linear-gradient(to bottom, #eff6ff 0%, #dbeafe 50%);
+    color: #1e3a8a;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.theme-dark .card {
+    background: rgba(17, 24, 39, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.theme-lavender .card {
+    background: rgba(250, 245, 255, 0.5);
+    border: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.theme-mint .card {
+    background: rgba(240, 253, 244, 0.5);
+    border: 1px solid rgba(4, 120, 87, 0.1);
+}
+
+.theme-sky .card {
+    background: rgba(239, 246, 255, 0.5);
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+}
+
+.theme-dark .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(17, 24, 39, 0.3);
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.stat-item {
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stat-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stat-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stat-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.insight-item {
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+}
+
+canvas {
+    max-height: 200px;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boarding Pass - Flight Focus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/boarding-pass.css">
+  <script type="module" src="../js/auth-guard.js"></script>
+</head>
+
+<body class="theme-light">
+  <div class="min-h-screen flex flex-col items-center justify-center px-4">
+
+    <div class="boarding-pass-container">
+      <div class="boarding-pass" id="boardingPass">
+
+        <div class="pass-front">
+          <div class="flex justify-between mb-6">
+            <div>
+              <h3 class="text-sm font-semibold text-blue-600 uppercase tracking-wider">Flight Focus</h3>
+              <p class="text-xs text-gray-500 mt-1">Do Not Disturb Mode</p>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-wider">Boarding Pass</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">From</p>
+              <p id="fromCode" class="text-3xl font-bold">---</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">To</p>
+              <p id="toCode" class="text-3xl font-bold">---</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-center my-6">
+            <div class="flex-1 h-px bg-gray-300"></div>
+            ✈
+            <div class="flex-1 h-px bg-gray-300"></div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-center mt-8">
+            <div>
+              <p class="text-xs text-gray-500">Aircraft</p>
+              <p class="text-lg font-semibold">A320</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Seat</p>
+              <p id="seatNumber" class="text-lg font-semibold text-red-500">--</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Duration</p>
+              <p id="durationDisplay" class="text-lg font-semibold whitespace-nowrap">--</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pass-back bg-gradient-to-br from-blue-50 to-purple-50">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Focus Session</h3>
+            <p id="objectiveText" class="text-gray-600 mb-6">
+              Your focus objective will appear here.
+            </p>
+
+            <div class="text-sm text-gray-500 space-y-2 mb-6">
+              <p>✦ Notifications muted</p>
+              <p>✦ One task. Full attention.</p>
+            </div>
+          </div>
+
+          <div>
+            <div class="barcode w-full mb-3"></div>
+            <p class="text-xs text-gray-400">Ready for takeoff</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tap-hint">👆 Tap card to flip</div>
+    <button class="continue-btn">Continue to Flight →</button>
+
+  </div>
+  <script type="module" src="../js/boarding-pass.js"></script>
+</body>
+
+</html>

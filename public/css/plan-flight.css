@@ -1,0 +1,225 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.fade-out {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Themes */
+.theme-light {
+    background-color: #ffffff;
+    color: #1f2937;
+}
+
+.theme-dark {
+    background-color: #0a0a0a;
+    color: #f3f4f6;
+}
+
+.theme-lavender {
+    background-color: #faf5ff;
+    color: #4c1d95;
+}
+
+.theme-mint {
+    background-color: #f0fdf4;
+    color: #064e3b;
+}
+
+.theme-sky {
+    background-color: #eff6ff;
+    color: #1e3a8a;
+}
+
+.card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    max-width: 480px;
+    width: 100%;
+}
+
+.select-trigger {
+    width: 100%;
+    height: 48px;
+    border-radius: 14px;
+    padding: 0 44px 0 16px;
+    background: rgba(0, 0, 0, 0.035);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.select-trigger:hover {
+    background: rgba(0, 0, 0, 0.055);
+}
+
+.chevron {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.4);
+}
+
+.select-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    padding: 6px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: all 0.18s ease;
+    z-index: 50;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.select-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.select-item {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.select-item:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.muted {
+    color: #9ca3af;
+}
+
+.theme-dark .card {
+    background-color: #111827;
+}
+
+.theme-lavender .card {
+    background-color: #faf5ff;
+}
+
+.theme-mint .card {
+    background-color: #f0fdf4;
+}
+
+.theme-sky .card {
+    background-color: #eff6ff;
+}
+
+.theme-dark .select-menu {
+    background-color: #1f2937;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.duration-btn {
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.duration-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.duration-btn.selected {
+    border-color: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.duration-btn.selected span.text-gray-500 {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-dark .duration-btn {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f3f4f6;
+}
+
+.theme-dark .duration-btn:hover {
+    background-color: #374151;
+    border-color: #3b82f6;
+}

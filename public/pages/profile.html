@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/profile.css">
+  <script type="module" src="../js/auth-guard.js"></script>
+</head>
+
+<body class="theme-light">
+
+  <header class="header">
+    <div class="max-w-2xl mx-auto px-6 py-4 flex items-center gap-4">
+      <button id="back-btn" class="p-2 hover:bg-black/5 rounded-full transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <h1 class="text-xl font-bold tracking-tight flex-1 text-center mr-8">Profile</h1>
+    </div>
+  </header>
+
+  <main class="flex justify-center px-4 pb-12">
+    <div class="w-full max-w-md space-y-5">
+
+      <div class="card p-6 text-center space-y-3">
+        <div class="avatar-container w-fit mx-auto relative group">
+          <img src="https://ui-avatars.com/api/?name=User&background=random"
+            class="w-24 h-24 rounded-full border-4 border-white shadow-xl object-cover" alt="Avatar" />
+          <button id="upload-photo-btn"
+            class="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:scale-110 transition-all group-hover:bg-blue-600"
+            title="Change Photo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </button>
+          <input type="file" id="photo-upload" hidden accept="image/*">
+        </div>
+
+        <div>
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <h2 id="displayName" class="text-2xl font-bold">Loading...</h2>
+            <button id="edit-name-btn"
+              class="text-blue-500 hover:text-blue-600 p-1 hover:bg-blue-50 rounded-full transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+          </div>
+          <p id="displayEmail" class="text-sm text-gray-500">...</p>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <p class="text-xs font-semibold uppercase text-gray-400 px-2">Account Details</p>
+        <div class="card divide-y divide-gray-100">
+          <div class="flex items-center justify-between px-6 py-4">
+            <div>
+              <p class="text-xs text-gray-400 uppercase mb-1">Email Address</p>
+              <p id="displayEmailAccount" class="text-sm font-medium">...</p>
+            </div>
+            <button id="edit-email-btn" class="text-sm text-blue-500 font-medium">Edit</button>
+          </div>
+          <div class="flex items-center justify-between px-6 py-4">
+            <div>
+              <p class="text-xs text-gray-400 uppercase mb-1">Member Since</p>
+              <p class="text-sm font-medium">December 21, 2024</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between px-6 py-4">
+            <div>
+              <p class="text-xs text-gray-400 uppercase mb-1">Subscription</p>
+              <p class="text-sm font-medium text-blue-500">Pro Plan • Active</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <p class="text-xs font-semibold uppercase text-gray-400 px-2">Preferences</p>
+        <div class="card p-6">
+          <p class="text-xs text-gray-400 uppercase mb-4">Theme</p>
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 flex-1">
+              <div id="themePreviewCircle"
+                class="w-14 h-14 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold" id="themeLabel">Light Mode</p>
+                <p class="text-xs text-gray-400">Current theme</p>
+              </div>
+            </div>
+            <div class="relative">
+              <button id="theme-toggle-btn" class="switch-button">
+                <span class="text-sm font-semibold">Switch</span>
+                <span class="chevron-switch"></span>
+              </button>
+              <div id="theme-menu" class="select-menu">
+                <div class="select-item" data-theme="light">
+                  <div class="theme-indicator" style="background: #f3f4f6"></div>Light Mode
+                </div>
+
+                <div class="select-item" data-theme="lavender">
+                  <div class="theme-indicator" style="background: #e9d5ff"></div>Lavender
+                </div>
+                <div class="select-item" data-theme="mint">
+                  <div class="theme-indicator" style="background: #d1fae5"></div>Mint
+                </div>
+                <div class="select-item" data-theme="sky">
+                  <div class="theme-indicator" style="background: #bfdbfe"></div>Sky
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="logout-btn"
+        class="w-full h-12 rounded-xl border-2 border-red-500/20 text-red-500 font-semibold hover:bg-red-500/10 transition-all">Log
+        Out</button>
+    </div>
+  </main>
+
+  <div id="editNameModal" class="modal-backdrop hidden">
+    <div class="modal-content card p-5">
+      <h3 class="text-xl font-bold mb-4">Edit Your Name</h3>
+      <input type="text" id="nameInput" class="premium-input mb-6" placeholder="Enter your name">
+      <div class="flex gap-3">
+        <button id="cancel-name-btn" class="flex-1 btn-secondary">Cancel</button>
+        <button id="save-name-btn" class="flex-1 btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editEmailModal" class="modal-backdrop hidden">
+    <div class="modal-content card p-6">
+      <h3 class="text-xl font-bold mb-4">Edit Email Address</h3>
+      <input type="email" id="emailInput" class="premium-input mb-6" placeholder="Enter your email">
+      <div class="flex gap-3">
+        <button id="cancel-email-btn" class="flex-1 btn-secondary">Cancel</button>
+        <button id="save-email-btn" class="flex-1 btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="logout-modal" class="modal-backdrop hidden">
+    <div class="modal-content card p-6 text-center">
+      <h3 class="text-xl font-bold mb-2">Confirm Logout</h3>
+      <p class="text-sm text-gray-500 mb-6">Are you sure you want to logout?</p>
+      <div class="flex gap-3">
+        <button id="cancel-logout-btn" class="flex-1 btn-secondary">Cancel</button>
+        <button id="confirm-logout-btn" class="flex-1 btn-primary bg-red-500 hover:bg-red-600"
+          style="background: #ef4444">Logout</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="../js/profile.js"></script>
+</body>
+
+</html>

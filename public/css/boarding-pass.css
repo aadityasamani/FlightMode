@@ -1,0 +1,169 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.fade-out {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* ===== DROP-IN ANIMATION ===== */
+@keyframes dropIn {
+    0% {
+        transform: translateY(-150vh) rotate(-5deg);
+        opacity: 0;
+    }
+
+    70% {
+        transform: translateY(20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* ===== THEMES ===== */
+.theme-light {
+    background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 50%);
+    color: #1f2937;
+}
+
+.theme-dark {
+    background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 50%);
+    color: #f3f4f6;
+}
+
+.theme-lavender {
+    background: linear-gradient(to bottom, #faf5ff 0%, #f5f3ff 50%);
+    color: #4c1d95;
+}
+
+.theme-mint {
+    background: linear-gradient(to bottom, #f0fdf4 0%, #ecfdf5 50%);
+    color: #064e3b;
+}
+
+.theme-sky {
+    background: linear-gradient(to bottom, #eff6ff 0%, #dbeafe 50%);
+    color: #1e3a8a;
+}
+
+.boarding-pass-container {
+    perspective: 1400px;
+    max-width: 480px;
+    width: 100%;
+    height: 320px;
+    position: relative;
+    animation: dropIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.boarding-pass {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.boarding-pass.flipped {
+    transform: rotateY(180deg);
+}
+
+.pass-front,
+.pass-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 28px;
+    padding: 34px;
+    background: white;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+}
+
+.pass-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.barcode {
+    height: 58px;
+    background: repeating-linear-gradient(90deg,
+            #000 0px,
+            #000 2px,
+            #fff 2px,
+            #fff 4px);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.tap-hint {
+    margin-top: 26px;
+    font-size: 13px;
+    color: #64748b;
+    opacity: 0.9;
+    animation: fadeInOut 2.2s infinite;
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.continue-btn {
+    margin-top: 34px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 14px 36px;
+    border-radius: 16px;
+    font-weight: 600;
+    box-shadow: 0 14px 40px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(59, 130, 246, 0.5);
+}

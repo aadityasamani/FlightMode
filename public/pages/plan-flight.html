@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan Your Flight</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/plan-flight.css">
+  <script type="module" src="../js/auth-guard.js"></script>
+</head>
+
+<body class="theme-light">
+
+  <!-- Top Bar -->
+  <header class="flex items-center gap-3 px-5 py-4">
+    <button id="back-btn" class="p-2 hover:bg-black/5 rounded-full transition-colors">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 pb-8">
+    <div class="card">
+
+      <!-- Icon -->
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xl">✈️</div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-center mb-1">Plan Your Flight</h2>
+      <p class="text-center text-gray-500 mb-6">Select your route and objective</p>
+
+      <!-- FROM -->
+      <div class="mb-4 relative">
+        <label class="block text-xs font-semibold uppercase mb-2 text-gray-700">From</label>
+        <div class="select-trigger" id="from-trigger">
+          <span id="fromValue" class="muted">Select origin</span>
+          <span class="chevron"></span>
+        </div>
+
+        <div id="from-menu" class="select-menu">
+          <div class="select-item" data-code="DAC" data-name="Dhaka">DAC — Dhaka, Bangladesh</div>
+          <div class="select-item" data-code="DEL" data-name="Delhi">DEL — Delhi, India</div>
+          <div class="select-item" data-code="BLR" data-name="Bangalore">BLR — Bangalore, India</div>
+          <div class="select-item" data-code="BOM" data-name="Mumbai">BOM — Mumbai, India</div>
+        </div>
+      </div>
+
+      <!-- TO -->
+      <div class="mb-4 relative">
+        <label class="block text-xs font-semibold uppercase mb-2 text-gray-700">To</label>
+        <div class="select-trigger" id="to-trigger">
+          <span id="toValue" class="muted">Select destination</span>
+          <span class="chevron"></span>
+        </div>
+
+        <div id="to-menu" class="select-menu">
+          <div class="select-item" data-code="CTU" data-name="Chengdu">CTU — Chengdu, China</div>
+          <div class="select-item" data-code="SIN" data-name="Singapore">SIN — Singapore</div>
+          <div class="select-item" data-code="DXB" data-name="Dubai">DXB — Dubai, UAE</div>
+          <div class="select-item" data-code="LHR" data-name="London">LHR — London, UK</div>
+        </div>
+      </div>
+
+      <!-- Objective -->
+      <div class="mb-6">
+        <label class="block text-xs font-semibold uppercase mb-2 text-gray-700">Flight Objective</label>
+        <input type="text" id="objectiveInput" placeholder="e.g. Finish project proposal"
+          class="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <!-- Duration -->
+      <div class="mb-6 p-4 rounded-xl bg-gray-50 border border-gray-100">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs font-semibold uppercase text-gray-500 mb-0.5">ESTIMATED FLIGHT TIME</div>
+            <div class="text-xs text-gray-400">Based on route distance</div>
+          </div>
+          <span id="duration" class="text-2xl font-bold text-gray-800">--h --m</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between">
+        <button id="cancel-btn" class="text-gray-400 hover:text-gray-600 transition-colors">Cancel</button>
+        <button id="takeOffBtn" class="btn-primary" disabled>Take Off →</button>
+      </div>
+
+    </div>
+  </main>
+  <script type="module" src="../js/plan-flight.js"></script>
+</body>
+
+</html>

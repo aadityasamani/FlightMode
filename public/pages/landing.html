@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Complete - Flight Mode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/landing.css">
+  <script type="module" src="../js/auth-guard.js"></script>
+</head>
+
+<body class="theme-light">
+  <main class="main-container">
+    <div class="content-wrapper">
+
+      <!-- Celebration Icon -->
+      <div class="celebration-icon">
+        <div class="icon-circle">🎉</div>
+      </div>
+
+      <!-- Success Message -->
+      <h1 class="success-title">Flight Complete!</h1>
+      <p class="success-subtitle">Great work on staying focused</p>
+
+      <!-- Flight Summary Card -->
+      <div class="summary-card">
+        <div class="summary-row">
+          <div class="summary-label">Duration</div>
+          <div class="summary-value" id="flight-duration">--</div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-label">Objective</div>
+          <div class="summary-value" id="flight-objective">--</div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-label">Completed At</div>
+          <div class="summary-value" id="flight-time">--</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="new-flight-btn" class="btn-primary">
+          ✈️ Start New Flight
+        </button>
+        <button id="dashboard-btn" class="btn-secondary">
+          ← Back to Dashboard
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="../js/landing.js"></script>
+</body>
+
+</html>

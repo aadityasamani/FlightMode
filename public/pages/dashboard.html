@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightMode - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script type="module" src="../js/auth-guard.js"></script>
+</head>
+
+<body class="theme-light">
+    <header class="content px-6 py-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">FlightMode</h1>
+    </header>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="w-full max-w-md content">
+            <!-- Welcome Section -->
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold mb-3">Welcome back</h2>
+                <p class="text-lg text-gray-500">Ready for your next focus flight?</p>
+            </div>
+
+            <!-- CTA Button -->
+            <button id="start-flight-btn"
+                class="cta-button w-full text-white font-semibold py-4 rounded-2xl mb-10 flex items-center justify-center gap-3 text-lg shadow-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+                Start a Focus Flight
+            </button>
+
+            <!-- Statistics Cards -->
+            <div class="stats-card border rounded-3xl p-6">
+                <div class="flex items-center justify-between text-center">
+                    <!-- TODAY -->
+                    <div class="flex-1">
+                        <div id="today-minutes" class="text-4xl font-bold mb-1">
+                            0<span class="text-2xl font-normal text-gray-500 ml-1">min</span>
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">
+                            TODAY
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-10 w-px bg-gray-200"></div>
+
+                    <!-- FLIGHTS -->
+                    <div class="flex-1">
+                        <div id="total-flights" class="text-4xl font-bold mb-1">0</div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">
+                            FLIGHTS
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-10 w-px bg-gray-200"></div>
+
+                    <!-- STREAK -->
+                    <div class="flex-1">
+                        <div id="streak-days" class="text-4xl font-bold mb-1">
+                            0<span class="text-2xl font-normal text-gray-500 ml-1">days</span>
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">
+                            STREAK
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav fixed bottom-0 left-0 right-0 px-6 py-4">
+        <div class="flex items-center justify-around max-w-md mx-auto">
+            <!-- Home -->
+            <a href="#" class="nav-icon active flex flex-col items-center gap-1 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="text-xs font-medium">Home</span>
+            </a>
+
+            <!-- Flights -->
+            <a href="my-flights.html" class="nav-icon flex flex-col items-center gap-1 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                    <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                    <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span class="text-xs font-medium">Flights</span>
+            </a>
+
+            <!-- Statistics -->
+            <a href="stats.html" class="nav-icon flex flex-col items-center gap-1 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="text-xs font-medium">Statistics</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="profile.html" class="nav-icon flex flex-col items-center gap-1 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-xs font-medium">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="fixed inset-0 hidden items-center justify-center z-50">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 backdrop-blur-md bg-white/30"></div>
+
+        <!-- Modal Box -->
+        <div class="relative w-[90%] max-w-sm rounded-3xl p-6 shadow-xl content modal-box">
+            <h3 class="text-xl font-bold mb-2 text-center">
+                Confirm Logout
+            </h3>
+            <p class="text-sm text-gray-500 text-center mb-6">
+                Are you sure you want to logout?
+            </p>
+
+            <div class="flex gap-3">
+                <button class="flex-1 py-3 rounded-xl border font-semibold transition hover:opacity-90">Cancel</button>
+
+                <button id="confirm-logout"
+                    class="flex-1 py-3 rounded-xl font-semibold text-white transition hover:opacity-90">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+
+</html>
