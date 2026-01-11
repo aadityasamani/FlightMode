@@ -1,0 +1,14 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Capacitor/Android
+android/app/build/
+android/.gradle/
+android/local.properties
+
+# Build outputs (if applicable in future)
+dist/
+www/
