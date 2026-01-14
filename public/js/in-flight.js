@@ -24,13 +24,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// Keep screen awake status helper
+async function setKeepAwake(enable) {
+    try {
+        if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.KeepAwake) {
+            if (enable) {
+                await window.Capacitor.Plugins.KeepAwake.keepAwake();
+                console.log('KeepAwake enabled');
+            } else {
+                await window.Capacitor.Plugins.KeepAwake.allowSleep();
+                console.log('KeepAwake disabled');
+            }
+        }
+    } catch (e) {
+        console.warn('KeepAwake error:', e);
+    }
+}
+
 // Parse duration to get total seconds
 function parseDuration(flightData) {
     // First try to use durationMinutes if available (more reliable)
     if (flightData.durationMinutes) {
         return flightData.durationMinutes * 60;
     }
-    
+
     // Fallback to parsing duration string (e.g., "30m" or "1h 30m")
     if (flightData.duration) {
         const parts = flightData.duration.match(/(\d+)h\s*(\d+)m|(\d+)m/);
@@ -44,7 +61,7 @@ function parseDuration(flightData) {
             }
         }
     }
-    
+
     // Default: 30 minutes
     return 30 * 60;
 }
@@ -115,10 +132,10 @@ function updateDisplay() {
     const hours = Math.floor(remainingSeconds / 3600);
     const mins = Math.floor((remainingSeconds % 3600) / 60);
     const secs = remainingSeconds % 60;
-    
+
     const timerDisplay = document.getElementById('timer-display');
     if (timerDisplay) {
-        timerDisplay.textContent = 
+        timerDisplay.textContent =
             `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
@@ -146,6 +163,9 @@ function updateDisplay() {
 
 /* ------------------ START TIMER ------------------ */
 function startTimer() {
+    // Keep screen awake during session
+    setKeepAwake(true);
+
     if (timerInterval) {
         clearInterval(timerInterval);
     }
@@ -215,7 +235,10 @@ async function discardFlight() {
 
         // Clear flight data
         localStorage.removeItem('currentFlight');
-        
+
+        // Allow sleep
+        setKeepAwake(false);
+
         // Stop timer
         if (timerInterval) {
             clearInterval(timerInterval);
@@ -239,6 +262,9 @@ async function discardFlight() {
 
 /* ------------------ COMPLETE FLIGHT ------------------ */
 async function completeFlight() {
+    // Allow sleep
+    setKeepAwake(false);
+
     if (timerInterval) {
         clearInterval(timerInterval);
     }
