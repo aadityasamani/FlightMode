@@ -42,32 +42,42 @@ async function setKeepAwake(enable) {
 }
 
 // Parse duration to get total seconds
+
 function parseDuration(flightData) {
-    // First try to use durationMinutes if available (more reliable)
-    if (flightData.durationMinutes) {
-        return flightData.durationMinutes * 60;
+    // 1. Try durationMinutes (number)
+    if (flightData.durationMinutes && !isNaN(flightData.durationMinutes)) {
+        return Number(flightData.durationMinutes) * 60;
     }
 
-    // Fallback to parsing duration string (e.g., "30m" or "1h 30m")
+    // 2. Try duration string
     if (flightData.duration) {
-        const parts = flightData.duration.match(/(\d+)h\s*(\d+)m|(\d+)m/);
-        if (parts) {
-            if (parts[1] && parts[2]) {
-                // Format: "1h 30m"
-                return parseInt(parts[1]) * 3600 + parseInt(parts[2]) * 60;
-            } else if (parts[3]) {
-                // Format: "30m"
-                return parseInt(parts[3]) * 60;
-            }
+        const d = flightData.duration.toString().toLowerCase().trim();
+
+        // Handle "1h 30m"
+        const hm = d.match(/(\d+)\s*h\s*(\d+)\s*m/);
+        if (hm) return (parseInt(hm[1]) * 3600) + (parseInt(hm[2]) * 60);
+
+        // Handle "1h"
+        const h = d.match(/^(\d+)\s*h$/);
+        if (h) return parseInt(h[1]) * 3600;
+
+        // Handle "30m"
+        const m = d.match(/^(\d+)\s*m$/);
+        if (m) return parseInt(m[1]) * 60;
+
+        // Handle plain number (assume minutes)
+        if (!isNaN(d)) {
+            return parseFloat(d) * 60;
         }
     }
 
     // Default: 30 minutes
+    console.warn('Could not parse duration, defaulting to 30m:', flightData);
     return 30 * 60;
 }
 
 const totalSeconds = parseDuration(flightData);
-const totalSeconds = parseDuration(flightData);
+console.log('Total seconds parsed:', totalSeconds);
 const totalDistance = 1533; // km
 
 let isPaused = flightData.status === 'paused';
@@ -81,12 +91,15 @@ if (flightData.status === 'active' && flightData.targetEndTime) {
     // Active session: calculate remaining time from target
     const now = Date.now();
     remainingSeconds = Math.max(0, Math.ceil((flightData.targetEndTime - now) / 1000));
+    console.log('Restored active session, remaining:', remainingSeconds);
 } else if (flightData.status === 'paused' && flightData.remainingSeconds) {
     // Paused session: restore saved remaining time
     remainingSeconds = flightData.remainingSeconds;
+    console.log('Restored paused session, remaining:', remainingSeconds);
 } else {
     // New or standard session
     remainingSeconds = totalSeconds;
+    console.log('New session initialized, remaining:', remainingSeconds);
 }
 
 /* ------------------ SAVE SESSION TO DATABASE ------------------ */
@@ -187,12 +200,19 @@ function startTimer() {
 
     // Initialize target time if starting/resuming active session
     if (!isPaused) {
+        // If we don't have a target time, OR if the status wasn't active, we need to set a new target.
+        // This handles both fresh starts and resumes from pause.
         if (!flightData.targetEndTime || flightData.status !== 'active') {
+            // Only set new target if not already completed/active with valid time
+            console.log('Setting new target end time. Remaining:', remainingSeconds);
             flightData.status = 'active';
             flightData.targetEndTime = Date.now() + (remainingSeconds * 1000);
             localStorage.setItem('currentFlight', JSON.stringify(flightData));
         }
     }
+
+    // Immediately update display once to prevent 00:00 flash
+    updateDisplay();
 
     timerInterval = setInterval(() => {
         if (!isPaused) {
@@ -201,6 +221,7 @@ function startTimer() {
             if (flightData.targetEndTime) {
                 const secondsLeft = Math.ceil((flightData.targetEndTime - now) / 1000);
 
+                // Only complete if we are genuinely out of time
                 if (secondsLeft <= 0) {
                     remainingSeconds = 0;
                     updateDisplay();
@@ -213,9 +234,10 @@ function startTimer() {
             }
         }
     }, 200); // Check more frequently
+
+
 }
 
-/* ------------------ PAUSE/RESUME ------------------ */
 /* ------------------ PAUSE/RESUME ------------------ */
 function togglePause() {
     isPaused = !isPaused;
