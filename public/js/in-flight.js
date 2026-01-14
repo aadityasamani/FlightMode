@@ -67,12 +67,27 @@ function parseDuration(flightData) {
 }
 
 const totalSeconds = parseDuration(flightData);
-let remainingSeconds = totalSeconds;
+const totalSeconds = parseDuration(flightData);
 const totalDistance = 1533; // km
 
-let isPaused = false;
+let isPaused = flightData.status === 'paused';
 let timerInterval = null;
-let sessionDbId = null; // Store database ID for updates
+let sessionDbId = flightData.dbId || null; // Store database ID for updates
+
+let remainingSeconds;
+
+// Restore state based on stored data
+if (flightData.status === 'active' && flightData.targetEndTime) {
+    // Active session: calculate remaining time from target
+    const now = Date.now();
+    remainingSeconds = Math.max(0, Math.ceil((flightData.targetEndTime - now) / 1000));
+} else if (flightData.status === 'paused' && flightData.remainingSeconds) {
+    // Paused session: restore saved remaining time
+    remainingSeconds = flightData.remainingSeconds;
+} else {
+    // New or standard session
+    remainingSeconds = totalSeconds;
+}
 
 /* ------------------ SAVE SESSION TO DATABASE ------------------ */
 async function saveSessionToDatabase(completedFlight, endTime, durationMinutes, status = 'completed') {
@@ -170,22 +185,60 @@ function startTimer() {
         clearInterval(timerInterval);
     }
 
-    timerInterval = setInterval(() => {
-        if (!isPaused && remainingSeconds > 0) {
-            remainingSeconds--;
-            updateDisplay();
+    // Initialize target time if starting/resuming active session
+    if (!isPaused) {
+        if (!flightData.targetEndTime || flightData.status !== 'active') {
+            flightData.status = 'active';
+            flightData.targetEndTime = Date.now() + (remainingSeconds * 1000);
+            localStorage.setItem('currentFlight', JSON.stringify(flightData));
+        }
+    }
 
-            if (remainingSeconds === 0) {
-                // Flight completed
-                completeFlight();
+    timerInterval = setInterval(() => {
+        if (!isPaused) {
+            // Calculate remaining from target time for accuracy
+            const now = Date.now();
+            if (flightData.targetEndTime) {
+                const secondsLeft = Math.ceil((flightData.targetEndTime - now) / 1000);
+
+                if (secondsLeft <= 0) {
+                    remainingSeconds = 0;
+                    updateDisplay();
+                    completeFlight();
+                    return;
+                }
+
+                remainingSeconds = secondsLeft;
+                updateDisplay();
             }
         }
-    }, 1000);
+    }, 200); // Check more frequently
 }
 
 /* ------------------ PAUSE/RESUME ------------------ */
+/* ------------------ PAUSE/RESUME ------------------ */
 function togglePause() {
     isPaused = !isPaused;
+
+    if (isPaused) {
+        // PAUSE: Calculate remaining, save it, clear target
+        if (flightData.targetEndTime) {
+            const now = Date.now();
+            remainingSeconds = Math.max(0, Math.ceil((flightData.targetEndTime - now) / 1000));
+        }
+
+        flightData.status = 'paused';
+        flightData.remainingSeconds = remainingSeconds;
+        flightData.targetEndTime = null;
+        localStorage.setItem('currentFlight', JSON.stringify(flightData));
+    } else {
+        // RESUME: Set new target based on remaining
+        flightData.status = 'active';
+        flightData.targetEndTime = Date.now() + (remainingSeconds * 1000);
+        flightData.remainingSeconds = null;
+        localStorage.setItem('currentFlight', JSON.stringify(flightData));
+    }
+
     const pauseBtn = document.getElementById('pause-resume-btn');
     const pauseIcon = pauseBtn?.querySelector('svg');
     const pauseText = pauseBtn?.querySelector('span');
